@@ -1,35 +1,35 @@
 hs.window.animationDuration = 0
 
 require("hue")
-require("window_management")
-require("browser_shortcuts")
+require("windowManagement")
+require("browserShortcuts")
 require("jira")
 require("omdb")
-require("hs_dev_utils")
+require("hsDevUtils")
 require("wifi")
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
-  move_current_window_to_left_half()
+  moveCurrentWindowToLeftHalf()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Right", function()
-  move_current_window_to_right_half()
+  moveCurrentWindowToRightHalf()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Up", function()
-  maximize_current_window()
+  maximizeCurrentWindow()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "g", function()
-  open_g()
+  openG()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "h", function()
-  control_hue()
+  controlHue()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "j", function()
-  browse_jira()
+  browseJira()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "i", function()
@@ -37,11 +37,11 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "i", function()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "c", function()
-  delete_webthing()
+  deleteWebthing()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "r", function()
-  reload_hs_config()
+  reloadHsConfig()
 end)
 
 startHueMenuIcon()

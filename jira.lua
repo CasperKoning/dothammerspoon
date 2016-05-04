@@ -1,6 +1,6 @@
 -- Jira viewer: (also see https://developer.atlassian.com/jiradev/jira-apis/jira-rest-apis/jira-rest-api-tutorials/jira-rest-api-version-2-tutorial)
 
-function browse_jira()
+function browseJira()
   local picker = hs.chooser.new(function(userInput)
     if userInput ~= nil then
       if userInput["url"] ~= nil then
@@ -11,16 +11,16 @@ function browse_jira()
 
 
   picker:queryChangedCallback(function(query)
-    hs.http.asyncGet(jira_query(query), nil, function(status, body, headers)
+    hs.http.asyncGet(jiraQuery(query), nil, function(status, body, headers)
       searchResult = hs.json.decode(body)
       if searchResult["fields"] ~= nil then
         local results = {}
 
         local key = searchResult["key"]
         local summary = searchResult["fields"]["summary"]
-        local self_url = searchResult["self"]
+        local selfUrl = searchResult["self"]
 
-        table.insert(results, {text = key .. ": " .. summary, url = self_url})
+        table.insert(results, {text = key .. ": " .. summary, url = selfUrl})
         picker:choices(results)
       end
     end)
@@ -32,6 +32,6 @@ function browse_jira()
   picker:show()
 end
 
-function jira_query(str)
+function jiraQuery(str)
   return "https://jira.wehkamp.io/rest/api/latest/issue/" .. str .. "?expand=summary"
 end

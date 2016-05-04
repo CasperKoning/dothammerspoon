@@ -1,9 +1,9 @@
 local ip = "192.168.178.18"
 local username = "4ae6299e34bd7de24173ad6e16e1fe"
-local light_index = 3
-local uri = "http://" .. ip .. "/api/" .. username .. "/lights/" .. light_index
+local lightIndex = 3
+local uri = "http://" .. ip .. "/api/" .. username .. "/lights/" .. lightIndex
 
-function random_color()
+local function randomColor()
   on = "\"on\":true"
   bri = "\"bri\":" .. 255
   hue = "\"hue\":" .. math.random(65535)
@@ -11,35 +11,33 @@ function random_color()
   return "{" .. on .. ",".. bri .. "," .. hue .. "," .. sat .. "}"
 end
 
-function send_hue_request(state, callback)
-  hs.http.doAsyncRequest(uri .. "/state", "PUT", state, nil, callback)
+function sendHueRequest(state)
+  hs.http.doAsyncRequest(uri .. "/state", "PUT", state, nil, setCorrectIcon)
 end
 
-function choose_color()
+function chooseColor()
   local picker = hs.chooser.new(function(userInput)
     if userInput ~= nil then
-      send_hue_request(userInput["new_state"], function()
-        -- empty callback
-      end)
+      sendHueRequest(userInput["newState"])
     end
   end)
 
   picker:choices({
     {
       ["text"] = "Red",
-      ["new_state"] = "{\"on\": true, \"bri\": 255, \"hue\": 0 , \"sat\": 255 }"
+      ["newState"] = "{\"on\": true, \"bri\": 255, \"hue\": 0 , \"sat\": 255 }"
     },
     {
       ["text"] = "Green",
-      ["new_state"] = "{\"on\": true, \"bri\": 255, \"hue\": 27535, \"sat\": 255 }"
+      ["newState"] = "{\"on\": true, \"bri\": 255, \"hue\": 27535, \"sat\": 255 }"
     },
     {
       ["text"] = "Blue",
-      ["new_state"] = "{\"on\": true, \"bri\": 255, \"hue\": 42535, \"sat\": 255 }"
+      ["newState"] = "{\"on\": true, \"bri\": 255, \"hue\": 42535, \"sat\": 255 }"
     },
     {
       ["text"] = "Pink",
-      ["new_state"] = "{\"on\": true, \"bri\": 255, \"hue\": 55535, \"sat\": 255 }"
+      ["newState"] = "{\"on\": true, \"bri\": 255, \"hue\": 55535, \"sat\": 255 }"
     }
   })
 
@@ -49,15 +47,13 @@ function choose_color()
   picker:show()
 end
 
-function control_hue()
+function controlHue()
   local picker = hs.chooser.new(function(userInput)
     if userInput ~= nil then
-      if userInput["next_step"] == "choose_color()" then
-        choose_color()
+      if userInput["nextStep"] == "chooseColor()" then
+        chooseColor()
       else
-        send_hue_request(userInput["new_state"], function()
-          -- empty callback
-        end)
+        sendHueRequest(userInput["newState"])
       end
     end
   end)
@@ -66,25 +62,25 @@ function control_hue()
     {
       ["text"] = "On",
       ["subText"] = "Turn the light on",
-      ["new_state"] = "{\"on\":true}",
-      ["next_step"] = "send_hue_request()"
+      ["newState"] = "{\"on\":true}",
+      ["nextStep"] = "sendHueRequest()"
     },
     {
       ["text"] = "Random",
       ["subText"] = "Use a random color",
-      ["new_state"] = random_color(),
-      ["next_step"] = "send_hue_request()"
+      ["newState"] = randomColor(),
+      ["nextStep"] = "sendHueRequest()"
     },
     {
       ["text"] = "Pick Color",
       ["subText"] = "Pick a color",
-      ["next_step"] = "choose_color()"
+      ["nextStep"] = "chooseColor()"
     },
     {
       ["text"] = "Off",
       ["subText"] = "Turn off",
-      ["new_state"] = "{\"on\":false}",
-      ["next_step"] = "send_hue_request()"
+      ["newState"] = "{\"on\":false}",
+      ["nextStep"] = "sendHueRequest()"
     }
   })
 
@@ -105,11 +101,11 @@ function setCorrectIcon()
 end
 
 function turnOn()
-  send_hue_request("{\"on\":true}", setCorrectIcon)
+  sendHueRequest("{\"on\":true}")
 end
 
 function turnOff()
-  send_hue_request("{\"on\":false}", setCorrectIcon)
+  sendHueRequest("{\"on\":false}")
 end
 
 function isCurrentlyOn(onTrue, onFalse)

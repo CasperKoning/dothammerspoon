@@ -1,4 +1,4 @@
-function move_current_window_to_left_half()
+function moveCurrentWindowToLeftHalf()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local max = win:screen():frame()
@@ -10,7 +10,7 @@ function move_current_window_to_left_half()
   win:setFrame(f)
 end
 
-function move_current_window_to_right_half()
+function moveCurrentWindowToRightHalf()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local max = win:screen():frame()
@@ -22,7 +22,7 @@ function move_current_window_to_right_half()
   win:setFrame(f)
 end
 
-function maximize_current_window()
+function maximizeCurrentWindow()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local max = win:screen():frame()
