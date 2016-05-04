@@ -1,3 +1,8 @@
+local ip = "192.168.178.18"
+local username = "4ae6299e34bd7de24173ad6e16e1fe"
+local light_index = 3
+local uri = "http://" .. ip .. "/api/" .. username .. "/lights/" .. light_index
+
 function random_color()
   on = "\"on\":true"
   bri = "\"bri\":" .. 255
@@ -6,14 +11,16 @@ function random_color()
   return "{" .. on .. ",".. bri .. "," .. hue .. "," .. sat .. "}"
 end
 
-function send_hue_request(state)
-  hs.http.doRequest(uri, "PUT", state, nil)
+function send_hue_request(state, callback)
+  hs.http.doAsyncRequest(uri .. "/state", "PUT", state, nil, callback)
 end
 
 function choose_color()
   local picker = hs.chooser.new(function(userInput)
     if userInput ~= nil then
-      send_hue_request(userInput["new_state"])
+      send_hue_request(userInput["new_state"], function()
+        -- empty callback
+      end)
     end
   end)
 
@@ -42,15 +49,15 @@ function choose_color()
   picker:show()
 end
 
-function control_hue(ip, username, light_index)
-  uri = "http://" .. ip .. "/api/" .. username .. "/lights/" .. light_index .. "/state"
-
+function control_hue()
   local picker = hs.chooser.new(function(userInput)
     if userInput ~= nil then
       if userInput["next_step"] == "choose_color()" then
         choose_color()
       else
-        send_hue_request(userInput["new_state"])
+        send_hue_request(userInput["new_state"], function()
+          -- empty callback
+        end)
       end
     end
   end)
@@ -85,4 +92,42 @@ function control_hue(ip, username, light_index)
   picker:fgColor(hs.drawing.color.x11["white"])
   picker:subTextColor(hs.drawing.color.x11["white"])
   picker:show()
+end
+
+function setCorrectIcon()
+  isCurrentlyOn(function()
+    title = "HUE OFF"
+    hueMenu:setTitle(title)
+  end,function()
+    title = "HUE ON"
+    hueMenu:setTitle(title)
+  end)
+end
+
+function turnOn()
+  send_hue_request("{\"on\":true}", setCorrectIcon)
+end
+
+function turnOff()
+  send_hue_request("{\"on\":false}", setCorrectIcon)
+end
+
+function isCurrentlyOn(onTrue, onFalse)
+  hs.http.asyncGet(uri, nil, function(status, body, headers)
+    if hs.json.decode(body)["state"]["on"] then
+      onTrue()
+    else
+      onFalse()
+    end
+  end)
+end
+
+function hueMenuClicked()
+  isCurrentlyOn(turnOff,turnOn)
+end
+
+function startHueMenuIcon()
+  hueMenu = hs.menubar.new()
+  hueMenu:setClickCallback(hueMenuClicked)
+  setCorrectIcon()
 end

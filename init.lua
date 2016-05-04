@@ -7,7 +7,6 @@ require("jira")
 require("omdb")
 require("hs_dev_utils")
 require("wifi")
-require("cmus")
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
   move_current_window_to_left_half()
@@ -26,7 +25,7 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "g", function()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "h", function()
-  control_hue("192.168.178.10", "4ae6299e34bd7de24173ad6e16e1fe", 3)
+  control_hue()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "j", function()
@@ -44,6 +43,8 @@ end)
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "r", function()
   reload_hs_config()
 end)
+
+startHueMenuIcon()
 
 watchForWifiConnectionEvent()
 
