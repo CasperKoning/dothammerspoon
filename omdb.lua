@@ -43,7 +43,6 @@ function searchOmdb()
 
             table.insert(choices, {
               text = foundTitle .. " (" .. foundYear .. ")",
-              subText = foundPlot,
               imdbId = foundImdbId
             })
           end)
