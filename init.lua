@@ -7,6 +7,7 @@ require("jira")
 require("omdb")
 require("hs_dev_utils")
 require("wifi")
+require("cmus")
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
   move_current_window_to_left_half()
@@ -44,6 +45,6 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "r", function()
   reload_hs_config()
 end)
 
-watch_for_wifi_connection_event()
+watchForWifiConnectionEvent()
 
 hs.alert.show("Conf reloaded")

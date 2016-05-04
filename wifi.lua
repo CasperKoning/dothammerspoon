@@ -1,4 +1,4 @@
-function watch_for_wifi_connection_event ()
+function watchForWifiConnectionEvent ()
   hs.wifi.watcher.new(function()
     local currentNetwork = hs.wifi.currentNetwork()
     local notify = hs.notify.new()
