@@ -1,6 +1,6 @@
 hs.window.animationDuration = 0
 
-require("hue")
+require("hue_demo")
 require("windowManagement")
 require("browserShortcuts")
 require("jira")
