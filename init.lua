@@ -44,6 +44,10 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "r", function()
   reloadHsConfig()
 end)
 
+hs.hotkey.bind({"cmd", "alt"}, "X", function()
+  workOnHammerspoonMode()
+end)
+
 startHueMenuIcon()
 
 watchForWifiConnectionEvent()

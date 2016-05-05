@@ -33,3 +33,14 @@ function maximizeCurrentWindow()
   f.h = max.h
   win:setFrame(f)
 end
+
+function workOnHammerspoonMode()
+  hs.openConsole(true)
+  hs.application("Atom"):activate(true)
+
+  local windowLayout = {
+      {"Atom",          nil, "Color LCD", hs.layout.left50,           nil, nil},
+      {"Hammerspoon",   nil, "Color LCD", {x=0.5, y=0, w=0.5, h=0.9}, nil, nil}
+  }
+  hs.layout.apply(windowLayout)
+end
