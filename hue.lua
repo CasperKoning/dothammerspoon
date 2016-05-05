@@ -92,11 +92,11 @@ end
 
 function setCorrectIcon()
   isCurrentlyOn(function()
-    title = "HUE OFF"
-    hueMenu:setTitle(title)
+    local image = hs.image.imageFromPath("icons/lightsOn.png")
+    hueMenu:setIcon(image:setSize({w=16, h=16}))
   end,function()
-    title = "HUE ON"
-    hueMenu:setTitle(title)
+    local image = hs.image.imageFromPath("icons/lightsOff.png")
+    hueMenu:setIcon(image:setSize({w=16, h=16}))
   end)
 end
 
