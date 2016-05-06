@@ -35,9 +35,9 @@ function maximizeCurrentWindow()
 end
 
 function workOnHammerspoonMode()
-  hs.openConsole(true)
   hs.application("Atom"):activate(true)
-
+  hs.openConsole(true)
+  
   local windowLayout = {
       {"Atom",          nil, "Color LCD", hs.layout.left50,           nil, nil},
       {"Hammerspoon",   nil, "Color LCD", {x=0.5, y=0, w=0.5, h=0.9}, nil, nil}
