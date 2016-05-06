@@ -24,6 +24,10 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "g", function()
   openG()
 end)
 
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "d", function()
+  openHammerspoonDocs()
+end)
+
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "h", function()
   controlHue()
 end)
