@@ -1,0 +1,6 @@
+-- This file contains sensitive environment information, such as passwords.
+-- In order for some modules to work, a copy of this file (without the .sample)
+-- is needed. Of course, the relevant constants have to be instantiated.
+
+jiraUsername = ???
+jiraPassword = ???
