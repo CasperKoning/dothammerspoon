@@ -7,7 +7,6 @@ require("jira")
 require("omdb")
 require("hsDevUtils")
 require("wifi")
-require("cmus")
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
   moveCurrentWindowToLeftHalf()
@@ -51,14 +50,6 @@ end)
 
 hs.hotkey.bind({"cmd", "alt"}, "X", function()
   workOnHammerspoonMode()
-end)
-
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "C", function()
-  toggleCmusPlayback()
-end)
-
-hs.hotkey.bind({"cmd", "alt", "ctrl"} , "V", function()
-  skipSongCmus()
 end)
 
 startHueMenuIcon()
