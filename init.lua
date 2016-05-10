@@ -1,6 +1,6 @@
 hs.window.animationDuration = 0
 
-require("hue_demo")
+require("hue")
 require("windowManagement")
 require("browserShortcuts")
 require("jira")
@@ -40,7 +40,7 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "i", function()
   searchOmdb()
 end)
 
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "c", function()
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "X", function()
   deleteWebthing()
 end)
 
