@@ -52,6 +52,7 @@ function browseJira()
     picker:bgDark(true)
     picker:fgColor(hs.drawing.color.x11["white"])
     picker:subTextColor(hs.drawing.color.x11["white"])
+    picker:rows(1)
     picker:show()
   else
     notify = hs.notify.new()
