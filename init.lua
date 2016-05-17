@@ -53,12 +53,16 @@ hs.hotkey.bind({"cmd", "alt"}, "X", function()
   workOnHammerspoonMode()
 end)
 
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "X", function()
+  previousSong()
+end)
+
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "C", function()
-  toggleCmusPlayback()
+  togglePlayback()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "V", function()
-  skipSongCmus()
+  skipSong()
 end)
 
 startHueMenuIcon()
