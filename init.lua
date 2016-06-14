@@ -33,6 +33,14 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "h", function()
   controlHue()
 end)
 
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "=", function()
+  changeBrightnessOfHueWhites(10)
+end)
+
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "-", function()
+  changeBrightnessOfHueWhites(-10)
+end)
+
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "j", function()
   browseJira()
 end)
