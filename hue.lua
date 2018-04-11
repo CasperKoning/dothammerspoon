@@ -18,7 +18,7 @@ end
 function chooseColor()
   local picker = hs.chooser.new(function(userInput)
     if userInput ~= nil then
-      sendHueRequest(userInput["newState"])
+      sendHueRequest(goLightIndex, userInput["newState"])
     end
   end)
 
@@ -83,7 +83,7 @@ function controlGo()
       if userInput["nextStep"] == "chooseColor()" then
         chooseColor()
       else
-        sendHueRequest(userInput["newState"])
+        sendHueRequest(goLightIndex, userInput["newState"])
       end
     end
   end)
@@ -127,11 +127,9 @@ function controlWhites()
         turnOn(1)
         turnOn(2)
       elseif userInput["action"] == "lighter" then
-        changeBrightness(1, 25)
-        changeBrightness(2, 25)
+        changeBrightnessOfHueWhites(25)
       elseif userInput["action"] == "darker" then
-        changeBrightness(1, -25)
-        changeBrightness(2, -25)
+        changeBrightnessOfHueWhites(-25)
       elseif userInput["action"] == "off" then
         turnOff(1)
         turnOff(2)
@@ -147,12 +145,12 @@ function controlWhites()
     },
     {
       ["text"] = "Lighter",
-      ["subText"] = "Decrease the brightness",
+      ["subText"] = "Increase the brightness",
       ["action"] = "lighter"
     },
     {
       ["text"] = "Darker",
-      ["subText"] = "Increase the brightness",
+      ["subText"] = "Decrease the brightness",
       ["action"] = "darker"
     },
     {
@@ -168,14 +166,19 @@ function controlWhites()
   picker:show()
 end
 
+local onImage = hs.image.imageFromPath("icons/lightsOn.png"):setSize({w=16, h=16})
+local offImage = hs.image.imageFromPath("icons/lightsOff.png"):setSize({w=16, h=16})
+
+function setOnImage()
+  hueMenu:setIcon(onImage)
+end
+
+function setOffImage()
+  hueMenu:setIcon(offImage)
+end
+
 function setCorrectIcon()
-  goCurrentlyOn(function()
-    local image = hs.image.imageFromPath("icons/lightsOn.png")
-    hueMenu:setIcon(image:setSize({w=16, h=16}))
-  end,function()
-    local image = hs.image.imageFromPath("icons/lightsOff.png")
-    hueMenu:setIcon(image:setSize({w=16, h=16}))
-  end)
+  goCurrentlyOn(setOnImage, setOffImage)
 end
 
 function turnAllOn()
@@ -213,7 +216,7 @@ end
 -- todo: check if works
 function changeBrightness(lightIndex, change)
   hs.http.asyncGet(uri .. lightIndex, nil, function(status, body, headers)
-    response = hs.json.decode(body)
+    response = hs.json.decode(body)  
     brightness = response["state"]["bri"]
     newBrightness = clamp(brightness + change, 0, 255)
     if(newBrightness > 0) then

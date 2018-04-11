@@ -3,11 +3,9 @@ hs.window.animationDuration = 0
 require("hue")
 require("windowManagement")
 require("browserShortcuts")
-require("jira")
 require("omdb")
 require("hsDevUtils")
 require("wifi")
-require("cmus")
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
   moveCurrentWindowToLeftHalf()
@@ -41,16 +39,8 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "-", function()
   changeBrightnessOfHueWhites(-10)
 end)
 
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "j", function()
-  browseJira()
-end)
-
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "i", function()
   searchOmdb()
-end)
-
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "X", function()
-  deleteWebthing()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "r", function()
@@ -59,18 +49,6 @@ end)
 
 hs.hotkey.bind({"cmd", "alt"}, "X", function()
   workOnHammerspoonMode()
-end)
-
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "X", function()
-  previousSong()
-end)
-
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "C", function()
-  togglePlayback()
-end)
-
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "V", function()
-  skipSong()
 end)
 
 startHueMenuIcon()
